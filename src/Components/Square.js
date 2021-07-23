@@ -2,7 +2,7 @@ import SqButton from './SqButton'
 
 const Square = ({markSpace, id}) => {
   return (
-    <div>
+    <div className="square">
       <SqButton markSpace={markSpace} id={id}/>
     </div>
   )
