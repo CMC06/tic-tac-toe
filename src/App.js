@@ -10,6 +10,14 @@ function App() {
   const [currentPlayer, setCurrentPlayer] = useState(0);
 
   const markSpace = (id, e) => {
+    console.log(e.target.innerHTML);
+    if(e.target.innerHTML === '<p></p>'){
+      console.log("It's blank, Jim!");
+    } else {
+      alert('You cannot move here, this spot is taken by another player. Try another space.');
+      return;
+    }
+    e.preventDefault();
     //code to mark space as X or O
     if (currentPlayer === 0) {
       e.target.innerHTML = 'X';
@@ -17,11 +25,13 @@ function App() {
       e.target.innerHTML = 'O'
     }
     console.log(id);
-    setBoardState(boardState[id - 1] = currentPlayer);
-    console.log(boardState);
-    setCurrentPlayer((currentPlayer + 1) % 2);    
-    console.log(`currentPlayer: ` + currentPlayer);
-  }
+    let holdState = [...boardState];
+    holdState[(id-1)] = currentPlayer;
+    console.log(holdState);
+    setBoardState([...holdState]);
+    holdState = [];
+    setCurrentPlayer((currentPlayer + 1) % 2);
+  };
 
   return (
     <div className="App">
