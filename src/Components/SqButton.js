@@ -1,8 +1,9 @@
-const SqButton = () => {
+const SqButton = ({markSpace, id}) => {
+
   return (
-    <div>
-      
-    </div>
+    <button className="sqButton" onClick={(e) => markSpace(id, e)}>
+      <p>{''}</p>
+    </button>
   )
 }
 
