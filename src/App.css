@@ -12,8 +12,17 @@ p {
   font-size: 1.5rem;
 }
 
+button {
+  background-color: rgb(56, 59, 59);
+  color: rgb(240, 240, 243);
+  min-height: fit-content;
+  padding: 10px;
+  font-size: .9rem;
+  border-radius: 5px;
+}
+
 .smallP {
-  font-size: 1rem;
+  font-size: .85rem;
 }
 
 .App {
