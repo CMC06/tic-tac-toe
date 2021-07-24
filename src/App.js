@@ -45,6 +45,7 @@ function App() {
 
   //function that compares actual moves to win conditions to see if a player won.
   const checkForWin = (boardState, counter) => {
+    let winner = false;
     if(counter < 5) return;
 
     winConditions.forEach(array => {
@@ -52,15 +53,18 @@ function App() {
       if(boardState[(array[0])] === boardState[(array[1])] && boardState[(array[1])] === boardState[(array[2])]) {
         if(boardState[array[0]] === 0){
           setWinner('Player X wins!');
+          winner = true;
           return;
         } else if (boardState[array[0]] === 1){
           setWinner('Player O wins!');
+          winner = true;
           return;
         }
       }
+      
     });
 
-    if(counter === 9) {
+    if(counter === 9 && winner === false) {
       setWinner('This game is a tie! Everyone wins (and loses)...')
     }
   }
