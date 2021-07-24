@@ -30,14 +30,12 @@ function App() {
     //set move counter
     let newMCount = moveCount + 1;
     setMoveCount(newMCount);
-    console.log('moves: ' + newMCount);
-    console.log('id: ' + id);
     //set boardState with new player placement
     let holdState = [...boardState];
     holdState[(id)] = currentPlayer;
     setBoardState([...holdState]);
     //check for a winner, using holdState since boardState isn't fully updated when triggering func
-    checkForWin(holdState);
+    checkForWin(holdState, newMCount);
     //set current player
     setCurrentPlayer((currentPlayer + 1) % 2);
   };
@@ -46,19 +44,25 @@ function App() {
   const winConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 4 ,8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8]]
 
   //function that compares actual moves to win conditions to see if a player won.
-  const checkForWin = (boardState) => {
-    if(moveCount < 4) return;
+  const checkForWin = (boardState, counter) => {
+    if(counter < 5) return;
 
     winConditions.forEach(array => {
       console.log(boardState[(array[0])] + ' ' + boardState[(array[1])] + ' ' + boardState[(array[2])]);
       if(boardState[(array[0])] === boardState[(array[1])] && boardState[(array[1])] === boardState[(array[2])]) {
         if(boardState[array[0]] === 0){
           setWinner('Player X wins!');
+          return;
         } else if (boardState[array[0]] === 1){
           setWinner('Player O wins!');
+          return;
         }
       }
-    })
+    });
+
+    if(counter === 9) {
+      setWinner('This game is a tie! Everyone wins (and loses)...')
+    }
   }
 
   const newGame = () => {
@@ -69,7 +73,7 @@ function App() {
     <div className="App">
       <Header />
       <Board markSpace={markSpace} />
-      <Footer player={currentPlayer} newGame={newGame} winner={winner}/>
+      <Footer player={currentPlayer} newGame={newGame} winner={winner} moveCount={moveCount}/>
     </div>
   );
 }
